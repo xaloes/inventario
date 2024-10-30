@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Lista de Artículos{% endblock %}
+
+{% block contenido %}
+<div class="container">
+    <h1 class="mt-4">Artículos</h1>
+    <form method="get" class="form-inline my-2">
+        <input class="form-control mr-sm-2" type="search" placeholder="Buscar" name="q" value="{{ request.GET.q }}">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+    </form>
+    <a href="{% url 'crear_articulo' %}" class="btn btn-primary my-2">Agregar Artículo</a>
+    <a href="{% url 'crear_categoria' %}" class="btn btn-primary my-2">Agregar Categoria</a>
+    <a href="{% url 'crear_ubicacion' %}" class="btn btn-primary my-2">Agregar Ubicacion</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Categorías</th>
+                <th>Ubicación</th>
+                <th>Unidades</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for articulo in articulos %}
+            <tr>
+                <td>{{ articulo.nombre }}</td>
+                <td>
+                    {% for categoria in articulo.categorias.all %}
+                        {{ categoria.nombre }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </td>
+                <td>{{ articulo.ubicacion.nombre }}</td>
+                <td>{{ articulo.unidades }}</td>
+                <td>
+                    <a href="{% url 'editar_articulo' articulo.pk %}" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="{% url 'eliminar_articulo' articulo.pk %}" class="btn btn-sm btn-danger">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
