@@ -1,16 +1,14 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Crear Categoría</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block contenido %}
+<div class="container">
+
     <h1>Crear Nueva Categoría</h1>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Guardar</button>
-        <a href="{% url 'listar_categorias' %}">Volver</a>
+        <button type="submit" class="btn btn-primary my-2">Guardar</button>
+        <a href="{% url 'listar_categorias' %}" class="btn btn-primary my-2">Volver</a>
     </form>
-</body>
-</html>
+</div>
+{% endblock %}

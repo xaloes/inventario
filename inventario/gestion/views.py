@@ -47,22 +47,79 @@ def eliminar_articulo(request, pk):
         return redirect('listar_articulos')
     return render(request, 'gestion/confirmar_eliminacion.html', {'obj': articulo})
 
-def crear_categoria(request):
-    if request.method == 'POST':
-        form = CategoriaForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('listar_articulos')
-    else:
-        form = CategoriaForm()
-    return render(request, 'gestion/form_categoria.html', {'form': form})
 
 def crear_ubicacion(request):
     if request.method == 'POST':
         form = UbicacionForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('listar_articulos')
+            return redirect('listar_ubicaciones')
     else:
         form = UbicacionForm()
     return render(request, 'gestion/form_ubicacion.html', {'form': form})
+
+def listar_ubicaciones(request):
+    ubicaciones_raiz = Ubicacion.objects.filter(padre__isnull=True)  # Ubicaciones raíz (sin padre)
+    return render(request, 'gestion/listar_ubicaciones.html', {'ubicaciones_raiz': ubicaciones_raiz})
+
+def editar_ubicacion(request, pk):
+    ubicacion = get_object_or_404(Ubicacion, pk=pk)
+    if request.method == 'POST':
+        form = UbicacionForm(request.POST, instance=ubicacion)
+        if form.is_valid():
+            form.save()
+            return redirect('listar_ubicaciones')  # Redirige al listado de ubicaciones
+    else:
+        form = UbicacionForm(instance=ubicacion)
+    
+    return render(request, 'gestion/editar_ubicacion.html', {'form': form, 'ubicacion': ubicacion})
+
+def eliminar_ubicacion(request, pk):
+    ubicacion = get_object_or_404(Ubicacion, pk=pk)
+    if request.method == 'POST':
+        ubicacion.delete()
+        return redirect('listar_ubicaciones')  # Redirige al listado de ubicaciones
+    
+    return render(request, 'gestion/eliminar_ubicacion.html', {'ubicacion': ubicacion})
+
+
+def listar_categorias(request):
+    categorias = Categoria.objects.all()
+    return render(request, 'gestion/listar_categorias.html', {'categorias': categorias})
+
+def crear_categoria(request):
+    if request.method == 'POST':
+        form = CategoriaForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('listar_categorias')
+    else:
+        form = CategoriaForm()
+    
+    return render(request, 'gestion/crear_categoria.html', {'form': form})
+
+def editar_categoria(request, pk):
+    categoria = get_object_or_404(Categoria, pk=pk)
+    if request.method == 'POST':
+        form = CategoriaForm(request.POST, instance=categoria)
+        if form.is_valid():
+            form.save()
+            return redirect('listar_categorias')
+    else:
+        form = CategoriaForm(instance=categoria)
+    
+    return render(request, 'gestion/editar_categoria.html', {'form': form, 'categoria': categoria})
+
+def eliminar_categoria(request, pk):
+    categoria = get_object_or_404(Categoria, pk=pk)
+    if request.method == 'POST':
+        categoria.delete()
+        return redirect('listar_categorias')
+    
+    return render(request, 'gestion/eliminar_categoria.html', {'categoria': categoria})
+
+
+
+
+
+

@@ -4,14 +4,15 @@
 
 {% block contenido %}
 <div class="container">
+    <a href="{% url 'listar_categorias' %}" class="btn btn-primary my-2">Listar Categorias</a>
+    <a href="{% url 'listar_ubicaciones' %}" class="btn btn-primary my-2">Listar Ubicaciones</a>
     <h1 class="mt-4">Artículos</h1>
     <form method="get" class="form-inline my-2">
         <input class="form-control mr-sm-2" type="search" placeholder="Buscar" name="q" value="{{ request.GET.q }}">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
     </form>
     <a href="{% url 'crear_articulo' %}" class="btn btn-primary my-2">Agregar Artículo</a>
-    <a href="{% url 'crear_categoria' %}" class="btn btn-primary my-2">Agregar Categoria</a>
-    <a href="{% url 'crear_ubicacion' %}" class="btn btn-primary my-2">Agregar Ubicacion</a>
+    
     <table class="table table-striped">
         <thead>
             <tr>
@@ -31,7 +32,7 @@
                 <td>{{ articulo.descripcion }}</td>
                 <td>
                     {% if articulo.foto %}
-                    <img src="{{ articulo.foto.url }}" alt="{{ articulo.nombre }}" width="150" height="50" onclick="openModal('{{ articulo.foto.url }}')">
+                    <img src="{{ articulo.foto.url }}" alt="{{ articulo.nombre }}" width="100" height="50" onclick="openModal('{{ articulo.foto.url }}')">
                 {% else %}
                     <p>No hay imagen disponible</p>
                 {% endif %}
