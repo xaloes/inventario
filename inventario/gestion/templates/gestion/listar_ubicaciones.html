@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+    <div class="container">
+        <h1>Lista de Ubicaciones</h1>
+        <a href="{% url 'crear_ubicacion' %}" class="btn btn-primary my-2">Crear Nueva Ubicación</a>
+
+        <ul>
+            {% for ubicacion in ubicaciones_raiz %}
+                <li>
+                    {{ ubicacion.nombre }}
+                    <a href="{% url 'editar_ubicacion' ubicacion.pk %}" class="btn btn-primary my-2">Editar</a>
+                    <a href="{% url 'eliminar_ubicacion' ubicacion.pk %}" class="btn btn-primary my-2">Eliminar</a>
+                    {% include 'gestion/ubicacion_hijos.html' with ubicacion=ubicacion %}
+                </li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'listar_articulos' %}" class="btn btn-primary my-2">Volver Articulos</a>
+    </div>
+
+    {% endblock %}
+

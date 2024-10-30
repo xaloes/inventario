@@ -1,0 +1,12 @@
+{% if ubicacion.hijos.all %}
+    <ul>
+        {% for hijo in ubicacion.hijos.all %}
+            <li>
+                {{ hijo.nombre }}
+                <a href="{% url 'editar_ubicacion' ubicacion.pk %}" class="btn btn-primary my-2">Editar</a>
+                <a href="{% url 'eliminar_ubicacion' ubicacion.pk %}" class="btn btn-primary my-2">Eliminar</a>
+                {% include 'gestion/ubicacion_hijos.html' with ubicacion=hijo %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}

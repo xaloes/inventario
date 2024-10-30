@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+
+
+    
+<div class="container">
+    <h1>Lista de Categorías</h1>
+    <a href="{% url 'crear_categoria' %}" class="btn btn-primary my-2">Crear Nueva Categoría</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Descripcion</th>
+                <th>EDITAR</th>
+                <th>ELIMINAR</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for categoria in categorias %}
+            <tr>
+                <td>{{ categoria.nombre }}</td>
+                <td>
+                    {% if categoria.descripcion %}
+                        {{ categoria.descripcion }}
+                    {% else %}
+                        <p>Sin descripción</p>
+                    {% endif %}
+                </td>
+                <td><a href="{% url 'editar_categoria' categoria.pk %}" class="btn btn-primary my-2">Editar</a></td>
+                <td><a href="{% url 'eliminar_categoria' categoria.pk %}" class="btn btn-primary my-2">Eliminar</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'listar_articulos' %}" class="btn btn-primary my-2">Volver Articulos</a>
+</div>
+ 
+
+{% endblock %}
