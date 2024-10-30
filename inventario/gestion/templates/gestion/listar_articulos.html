@@ -1,9 +1,21 @@
 {% extends 'base.html' %}
+#myModal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro para el modal */
+}
 
 {% block titulo %}Lista de Artículos{% endblock %}
 
 {% block contenido %}
 <div class="container">
+   
     <a href="{% url 'listar_categorias' %}" class="btn btn-primary my-2">Listar Categorias</a>
     <a href="{% url 'listar_ubicaciones' %}" class="btn btn-primary my-2">Listar Ubicaciones</a>
     <h1 class="mt-4">Artículos</h1>

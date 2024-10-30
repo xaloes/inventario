@@ -1,1 +1,3 @@
 *.pyc
+*.jpg
+inventario/db.sqlite3
